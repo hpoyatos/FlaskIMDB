@@ -8,6 +8,7 @@ Instalação
 clone:
 
 $ git clone https://github.com/hpoyatos/FlaskIMDB.git
+
 $ cd FlaskIMDB
 
 Criar & activar o virtual env e instalar dependências de software:
@@ -15,12 +16,15 @@ Criar & activar o virtual env e instalar dependências de software:
 with venv/virtualenv + pip:
 
 $ python -m venv env  # use `python3 ...` for Python3 on Linux & macOS
+
 $ source env/bin/activate  # usar `env\Scripts\activate` no Windows
+
 $ pip install -r requirements.txt
 
 ou usando Pipenv:
 
 $ pipenv install --dev
+
 $ pipenv shell
 
 $ flask run
