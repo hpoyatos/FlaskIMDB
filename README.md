@@ -17,7 +17,7 @@ with venv/virtualenv + pip:
 
 $ python -m venv env  # use `python3 ...` for Python3 on Linux & macOS
 
-$ source env/bin/activate  # usar `env\Scripts\activate` no Windows
+$ source env/bin/activate  # usar `.env\Scripts\activate` no Windows
 
 $ pip install -r requirements.txt
 
