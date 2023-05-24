@@ -1,6 +1,7 @@
 # FlaskIMDB
 Exemplo de Python Flask + SQLAlchemy com o objetivo de realizar um CRUD de filmes.
 
+![image](https://github.com/hpoyatos/FlaskIMDB/assets/957400/7065fad3-0981-46e6-bf82-3f1d8dc1e540)
 
 
 
