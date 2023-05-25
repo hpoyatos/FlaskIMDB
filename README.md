@@ -5,6 +5,9 @@ Exemplo de Python Flask + SQLAlchemy com o objetivo de realizar um CRUD de filme
 
 
 
+
+PEGUE TAMBÉM A IMAGEM PÚBLICA DOCKER em https://hub.docker.com/repository/docker/hpoyatos/flask_imdb/general
+
 Instalação
 clone:
 
