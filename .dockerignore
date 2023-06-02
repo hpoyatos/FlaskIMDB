@@ -1,5 +1,9 @@
-Dockerfile
+Dockerfile*
 __pycache__
 env
 .git
 .gitignore
+README.md
+.dockerignore
+imdb.sql
+imdb_sqlite.sql
