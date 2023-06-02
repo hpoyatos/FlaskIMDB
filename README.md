@@ -32,23 +32,23 @@ $ pipenv shell
 
 Configure a seguinte variável de ambiente
 
-Unix Bash (Linux, Mac, etc.):
-
+Como "setar" a variável de ambiente em Unix Bash (Linux, Mac, etc.) e rodar:
 $ export FLASK_APP=FlaskIMDB
 $ cd ..
 $ flask run
-Windows CMD:
 
-> set FLASK_APP=hello
+Para "setar" a variável de ambiente no Windows CMD e rodar:
+> set FLASK_APP=FlaskIMDB
 > cd ..
 > flask run
-Windows PowerShell:
+
+Para "setar" a variável de ambiente no Windows PowerShell e rodar:
 
 > $env:FLASK_APP = "FlaskIMDB"
 > cd ..
 > flask run
 
-$ flask run
+Rodou? Espera-se isso!
 * Running on http://127.0.0.1:5000/
 
 License
