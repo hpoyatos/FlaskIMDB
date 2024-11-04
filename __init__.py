@@ -1,6 +1,6 @@
 from flask import Flask 
 from .extensions import db, migrate
-#adiciona isso
+#codigo
 from .routes.filmeBp import filmeBp
 
 import os
