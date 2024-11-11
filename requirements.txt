@@ -13,4 +13,5 @@ SQLAlchemy==2.0.15
 alembic==1.11.1
 #greenlet==2.0.2
 typing-extensions==4.6.1
+gunicorn==23.0.0
 

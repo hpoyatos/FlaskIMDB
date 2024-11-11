@@ -1,0 +1,16 @@
+runtime: python39  # Use a versão do Python suportada (substitua por python38 ou python311, se necessário)
+
+instance_class: F2  # Opcional: define o tipo de instância (ajuste conforme necessário)
+
+entrypoint: gunicorn -b :$PORT your_app:app  # Substitua 'your_app' pelo nome da pasta onde está o arquivo __init__.py
+
+handlers:
+  - url: /.*
+    script: auto  # Atribui automaticamente o script de entrada principal
+
+env_variables:  # Opcional: variáveis de ambiente da aplicação
+  YOUR_ENV_VAR: "some_value"
+
+automatic_scaling:  # Opcional: escalonamento automático (pode ajustar conforme o uso)
+  target_cpu_utilization: 0.65
+  max_instances: 3
