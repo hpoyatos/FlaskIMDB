@@ -49,7 +49,7 @@ Para "setar" a variável de ambiente no Windows PowerShell e rodar:
 > flask run
 
 Rodou? Espera-se isso!
-* Running on http://127.0.0.1:5000/
+* Running on http://127.0.0.1:5000/filmes
 
 License
 This project is licensed under the MIT License (see the LICENSE file for details).
