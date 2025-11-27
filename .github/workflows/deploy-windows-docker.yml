@@ -19,13 +19,10 @@ jobs:
           docker build -t flaskimdb:latest .
 
       - name: Parar container antigo (se existir)
-        shell: powershell
+        shell: cmd
         run: |
-          docker stop flaskimdb 2>$null
-          if ($LASTEXITCODE -ne 0) { Write-Host "Nenhum container para parar" }
-
-          docker rm flaskimdb 2>$null
-          if ($LASTEXITCODE -ne 0) { Write-Host "Nenhum container para remover" }
+          docker stop flaskimdb 2>nul || echo Nenhum container para parar
+          docker rm flaskimdb 2>nul || echo Nenhum container para remover
 
       - name: Subir novo container
         shell: powershell
