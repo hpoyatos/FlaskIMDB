@@ -1,18 +1,48 @@
-name: Docker Image CI
+name: Build e Deploy Docker no Windows Desktop Local (teste de desenvolvimento)
 
 on:
   push:
-    branches: [ "master" ]
-  pull_request:
-    branches: [ "master" ]
+    branches: [ "dev" ]
 
 jobs:
 
-  build:
-
-    runs-on: ubuntu-latest
+  build-and-run:
+    runs-on: [self-hosted, Windows]
 
     steps:
-    - uses: actions/checkout@v4
-    - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
+      - name: Checkout do código
+        uses: actions/checkout@v4
+
+      - name: Build da imagem Docker
+        shell: powershell
+        run: |
+          docker build -t flaskimdb:latest .
+
+      - name: Parar container antigo (se existir)
+        shell: powershell
+        run: |
+          $ErrorActionPreference = "SilentlyContinue"
+
+          Write-Host "Verificando se existe container 'flaskimdb'..."
+          $container = docker ps -aq -f "name=flaskimdb"
+
+          if ($container) {
+            Write-Host "Container encontrado: $container. Parando..."
+            docker stop $container
+            Write-Host "Removendo container..."
+            docker rm $container
+          }
+          else {
+            Write-Host "Nenhum container 'flaskimdb' para parar/remover."
+          }
+
+          exit 0
+
+      - name: Subir novo container
+        shell: powershell
+        run: |
+          docker run -d `
+            --name flaskimdb `
+            -p 5000:5000 `
+            --restart unless-stopped `
+            flaskimdb:latest
