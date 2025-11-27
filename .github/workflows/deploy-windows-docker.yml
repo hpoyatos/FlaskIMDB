@@ -1,5 +1,5 @@
 name: Build e Deploy Docker no Windows
-#teste
+
 on:
   push:
     branches:
@@ -7,16 +7,11 @@ on:
 
 jobs:
   build-and-run:
-    runs-on: [self-hosted, Windows]  # labels do seu runner
+    runs-on: [self-hosted, Windows]
 
     steps:
       - name: Checkout do código
         uses: actions/checkout@v4
-
-      # Opcional: ver versão do Docker (dá pra tirar se quiser)
-      - name: Verificar versão do Docker
-        shell: powershell
-        run: docker version
 
       - name: Build da imagem Docker
         shell: powershell
@@ -26,8 +21,11 @@ jobs:
       - name: Parar container antigo (se existir)
         shell: powershell
         run: |
-          docker stop flaskimdb 2>$null || echo "Nenhum container para parar"
-          docker rm flaskimdb 2>$null || echo "Nenhum container para remover"
+          docker stop flaskimdb 2>$null
+          if ($LASTEXITCODE -ne 0) { Write-Host "Nenhum container para parar" }
+
+          docker rm flaskimdb 2>$null
+          if ($LASTEXITCODE -ne 0) { Write-Host "Nenhum container para remover" }
 
       - name: Subir novo container
         shell: powershell
