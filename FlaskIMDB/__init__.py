@@ -1,4 +1,4 @@
-from flask import Flask, redirect
+from flask import Flask, redirect, jsonify
 from .extensions import db, migrate
 #codigo
 from .routes.filmeBp import filmeBp
