@@ -1,8 +1,6 @@
 from ..extensions import db
 from flask_sqlalchemy import SQLAlchemy
 
-db = SQLAlchemy()
-
 # Tabela de associação many-to-many
 filme_genero = db.Table(
     "filme_genero",
