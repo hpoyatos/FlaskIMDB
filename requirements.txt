@@ -8,7 +8,7 @@ colorama
 MarkupSafe
 Flask-Migrate
 Flask-SQLAlchemy
-FlaskForm
+flask-wtf
 wtforms
 Mako
 SQLAlchemy
