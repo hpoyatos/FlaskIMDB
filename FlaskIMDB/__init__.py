@@ -1,8 +1,7 @@
-from flask import Flask 
+from flask import Flask, redirect, jsonify
 from .extensions import db, migrate
 #codigo
 from .routes.filmeBp import filmeBp
-
 import os
 PROJECT_ROOT = os.path.dirname(os.path.realpath(__file__))
 
@@ -17,5 +16,15 @@ def create_app():
 
     #e adiciona isso
     app.register_blueprint(filmeBp)
+
+    # Redirecionamento padrão da raiz...
+    @app.route("/")
+    def root_redirect():
+        return redirect("/filme", code=302)
+
+    # Para eventuais checagens automáticas da saúde do container/projeto
+    @app.route("/healthz")
+    def healthcheck():
+        return jsonify({"status": "ok"}), 200
 
     return app
