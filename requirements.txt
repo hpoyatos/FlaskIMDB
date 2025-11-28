@@ -15,4 +15,3 @@ SQLAlchemy
 alembic
 typing-extensions
 gunicorn
-jsonify
