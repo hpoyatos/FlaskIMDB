@@ -18,4 +18,14 @@ def create_app():
     #e adiciona isso
     app.register_blueprint(filmeBp)
 
+    # Redirecionamento padrão da raiz...
+    @app.route("/")
+    def root_redirect():
+        return redirect("/filme", code=302)
+
+    # Para eventuais checagens automáticas da saúde do container/projeto
+    @app.route("/healthz")
+    def healthcheck():
+        return jsonify({"status": "ok"}), 200
+
     return app
