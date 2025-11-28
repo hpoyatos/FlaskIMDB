@@ -21,14 +21,19 @@
                             <tr>
                                 <td>{{filme.titulo}}</td>
                                 <td>{{filme.ano}}</td>
-                                <td><a href="/filme/update/{{filme.id}}" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Alterar</a>
+                                <td><a href="/filme/{{filme.id}}/editar" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Alterar</a>
                                     <a href="/filme/delete/{{filme.id}}" class="btn btn-danger btn-lg active" role="button" aria-pressed="true">Apagar</a>
+                                </td>
+                                <td>
+                                    {% for g in filme.generos %}
+                                    <span class="badge bg-secondary">{{ g.nome }}</span>
+                                    {% endfor %}
                                 </td>
                             </tr>
                             {% endfor %}
                         </tbody>
                     </table>
-                    <a href="/filme/create" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Novo</a>
+                    <a href="/filme/novo" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Novo</a>
                 </div>
             </div>
         </div>

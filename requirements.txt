@@ -8,6 +8,8 @@ colorama
 MarkupSafe
 Flask-Migrate
 Flask-SQLAlchemy
+FlaskForm
+wtforms
 Mako
 SQLAlchemy
 alembic

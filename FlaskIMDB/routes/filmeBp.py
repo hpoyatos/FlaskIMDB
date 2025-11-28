@@ -1,7 +1,8 @@
 # adiciona o , render_template
 from flask import Blueprint, render_template, request, redirect, url_for
 from ..extensions import db
-from ..models.filme import Filme
+from ..models.filme import Filme, Genero
+from ..forms import FilmeForm
 from datetime import date, datetime
 
 #Instanciar o blueprint
@@ -16,43 +17,59 @@ def filme_list():
     filmes_query = Filme.query.all()
     return render_template('filme_list.html', filmes=filmes_query)
 
-@filmeBp.route('/filme/create')
+@filmeBp.route('/filme/novo', methods=["GET", "POST"])
 def create_filme():
-    return render_template('filme_create.html')
+    form = FilmeForm()
 
-@filmeBp.route('/filme/add', methods=["POST"])
-def add_filme():
+    # popular opções de gêneros
+    form.generos.choices = [
+        (g.id, g.nome) for g in Genero.query.order_by(Genero.nome).all()
+    ]
 
-    sTitulo = request.form["titulo"]
-    iAno = request.form["ano"]
+    if form.validate_on_submit():
+        filme = Filme(
+            titulo=form.titulo.data,
+            ano=form.ano.data,
+        )
 
-    filme = Filme(titulo=sTitulo, ano=iAno)
-    db.session.add(filme)
-    db.session.commit()
+        generos_ids = form.generos.data or []
+        filme.generos = Genero.query.filter(
+            Genero.id.in_(generos_ids)
+        ).all()
 
-    return redirect(url_for("filmeBp.filme_list"))
+        db.session.add(filme)
+        db.session.commit()
+        return redirect(url_for("filme.lista_filmes"))
+
+    return render_template("filme_form.html", form=form)
 
 #Chamar o formulário de alteração
-@filmeBp.route('/filme/update/<filme_id>')
-def update_filme(filme_id=0):
-    filme_query = Filme.query.filter_by(id = filme_id).first()
-    return render_template('filme_update.html', filme=filme_query) 
+@filmeBp.route('/filme/<int:filme_id>/editar', methods=["GET", "POST"])
+def update_filme(filme_id):
+    filme = Filme.query.get_or_404(filme_id)
+    form = FilmeForm(obj=filme)
 
-#Tratar o update (faz ele no banco)
-@filmeBp.route('/filme/upd', methods=["POST"])
-def upd_filme():
+    form.generos.choices = [
+        (g.id, g.nome) for g in Genero.query.order_by(Genero.nome).all()
+    ]
 
-    iFilme = request.form["id"]
-    sTitulo = request.form["titulo"]
-    iAno = request.form["ano"]
+    if request.method == "GET":
+        # pré-selecionar gêneros já associados
+        form.generos.data = [g.id for g in filme.generos]
 
-    filme = Filme.query.filter_by(id = iFilme).first()
-    filme.titulo = sTitulo
-    filme.ano = iAno
-    db.session.add(filme)
-    db.session.commit()
+    if form.validate_on_submit():
+        filme.titulo = form.titulo.data
+        filme.ano = form.ano.data
 
-    return redirect(url_for("filmeBp.filme_list"))  
+        generos_ids = form.generos.data or []
+        filme.generos = Genero.query.filter(
+            Genero.id.in_(generos_ids)
+        ).all()
+
+        db.session.commit()
+        return redirect(url_for("filme.lista_filmes"))
+
+    return render_template("filme_form.html", form=form, filme=filme)
 
 #Tratar o apagar (tela de confirmação)
 @filmeBp.route('/filme/delete/<filme_id>')
