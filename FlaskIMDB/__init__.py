@@ -2,7 +2,6 @@ from flask import Flask, redirect, jsonify
 from .extensions import db, migrate
 #codigo
 from .routes.filmeBp import filmeBp
-from jsonify import jsonify
 import os
 PROJECT_ROOT = os.path.dirname(os.path.realpath(__file__))
 
